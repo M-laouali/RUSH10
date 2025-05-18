@@ -1,43 +1,53 @@
 #include <stdio.h>
-#include <stdlib.h> // pour utiliser malloc si nécessaire
-#include <stdbool.h> // pour le type bool
 
-// ===== Fonction 1 : Calculatrice =====
+// Fonction 1 : Calculatrice
 void calculatrice() {
-    float a, b;
-    char op;
+    int choix;
+    float a, b, resultat;
 
     printf("\n--- Calculatrice ---\n");
-    printf("Entrez une opération (ex: 5 + 3) : ");
-    scanf("%f %c %f", &a, &op, &b);
+    printf("1. Addition\n2. Soustraction\n3. Multiplication\n4. Division\n");
+    printf("Votre choix : ");
+    scanf("%d", &choix);
 
-    switch(op) {
-        case '+': printf("Résultat : %.2f\n", a + b); break;
-        case '-': printf("Résultat : %.2f\n", a - b); break;
-        case '*': printf("Résultat : %.2f\n", a * b); break;
-        case '/':
-            if (b != 0)
-                printf("Résultat : %.2f\n", a / b);
-            else
-                printf("Erreur : division par zéro.\n");
-            break;
-        default:
-            printf("Opérateur invalide.\n");
+    printf("Entrez le premier nombre : ");
+    scanf("%f", &a);
+    printf("Entrez le deuxième nombre : ");
+    scanf("%f", &b);
+
+    if (choix == 1) {
+        resultat = a + b;
+    } else if (choix == 2) {
+        resultat = a - b;
+    } else if (choix == 3) {
+        resultat = a * b;
+    } else if (choix == 4) {
+        if (b != 0)
+            resultat = a / b;
+        else {
+            printf("Erreur : division par zéro !\n");
+            return;
+        }
+    } else {
+        printf("Choix invalide.\n");
+        return;
     }
+
+    printf("Résultat : %.2f\n", resultat);
 }
 
-// ===== Fonction 2 : Vérification de nombre premier =====
+// Fonction 2 : Vérification de nombre premier
 void verifierPremier() {
     int n, i, estPremier = 1;
 
-    printf("\n--- Vérifier un nombre premier ---\n");
-    printf("Entrez un entier : ");
+    printf("\n--- Vérification de nombre premier ---\n");
+    printf("Entrez un nombre entier : ");
     scanf("%d", &n);
 
     if (n <= 1) {
         estPremier = 0;
     } else {
-        for (i = 2; i * i <= n; i++) {
+        for (i = 2; i < n; i++) {
             if (n % i == 0) {
                 estPremier = 0;
                 break;
@@ -51,79 +61,77 @@ void verifierPremier() {
         printf("%d n'est pas un nombre premier.\n", n);
 }
 
-// ===== Fonction 3 : Suite de Fibonacci =====
-void suiteFibonacci() {
-    int n, i;
-    int a = 0, b = 1, temp;
+// Fonction 3 : Suite arithmétique (simple)
+void suiteArithmetique() {
+    int u0, r, n, i;
 
-    printf("\n--- Suite de Fibonacci ---\n");
-    printf("Entrez le nombre de termes à générer : ");
+    printf("\n--- Suite arithmétique ---\n");
+    printf("Premier terme (u0) : ");
+    scanf("%d", &u0);
+
+    printf("Raison (r) : ");
+    scanf("%d", &r);
+
+    printf("Nombre de termes à générer : ");
     scanf("%d", &n);
 
-    printf("Fibonacci : ");
+    printf("Suite : ");
     for (i = 0; i < n; i++) {
-        printf("%d ", a);
-        temp = a + b;
-        a = b;
-        b = temp;
+        printf("%d ", u0 + i * r);
     }
     printf("\n");
 }
 
-// ===== Fonction 4 : Tri d’un tableau (tri à bulles) =====
-void trierTableau() {
-    int n, i, j, temp;
+// Fonction 4 : Tri d’un tableau (tri à bulles)
+void triTableau() {
+    int tab[100], n, i, j, temp;
 
     printf("\n--- Tri d'un tableau ---\n");
-    printf("Entrez la taille du tableau : ");
+    printf("Combien d'éléments ? ");
     scanf("%d", &n);
-
-    int tableau[n];
 
     for (i = 0; i < n; i++) {
         printf("Élément %d : ", i + 1);
-        scanf("%d", &tableau[i]);
+        scanf("%d", &tab[i]);
     }
 
     // Tri à bulles
     for (i = 0; i < n - 1; i++) {
-        for (j = 0; j < n - i - 1; j++) {
-            if (tableau[j] > tableau[j + 1]) {
-                temp = tableau[j];
-                tableau[j] = tableau[j + 1];
-                tableau[j + 1] = temp;
+        for (j = 0; j < n - 1 - i; j++) {
+            if (tab[j] > tab[j + 1]) {
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
             }
         }
     }
 
     printf("Tableau trié : ");
     for (i = 0; i < n; i++) {
-        printf("%d ", tableau[i]);
+        printf("%d ", tab[i]);
     }
     printf("\n");
 }
 
-// ===== Fonction 5 : Recherche dans un tableau =====
-void rechercherElement() {
-    int n, i, valeur, trouve = 0;
+// Fonction 5 : Recherche dans un tableau
+void rechercheDansTableau() {
+    int tab[100], n, i, x, trouve = 0;
 
     printf("\n--- Recherche dans un tableau ---\n");
-    printf("Entrez la taille du tableau : ");
+    printf("Combien d'éléments ? ");
     scanf("%d", &n);
-
-    int tableau[n];
 
     for (i = 0; i < n; i++) {
         printf("Élément %d : ", i + 1);
-        scanf("%d", &tableau[i]);
+        scanf("%d", &tab[i]);
     }
 
-    printf("Entrez l’élément à rechercher : ");
-    scanf("%d", &valeur);
+    printf("Entrez l'élément à rechercher : ");
+    scanf("%d", &x);
 
     for (i = 0; i < n; i++) {
-        if (tableau[i] == valeur) {
-            printf("Élément trouvé à la position %d.\n", i);
+        if (tab[i] == x) {
+            printf("Élément trouvé à la position %d\n", i + 1);
             trouve = 1;
             break;
         }
@@ -134,32 +142,162 @@ void rechercherElement() {
     }
 }
 
-// ===== Menu principal =====
+// Fonction principale avec menu
 int main() {
     int choix;
 
     do {
-        printf("\n===== MENU =====\n");
+        printf("\n=== MENU ===\n");
         printf("1. Calculatrice\n");
-        printf("2. Vérifier un nombre premier\n");
-        printf("3. Générer une suite de Fibonacci\n");
-        printf("4. Trier un tableau\n");
-        printf("5. Rechercher un élément dans un tableau\n");
-        printf("0. Quitter\n");
-        printf("Votre choix : ");
-        scanf("%d", &choix);
+        printf("2. Vérifier si un nombre est premier\n");#include <stdio.h>
 
-        switch(choix) {
-            case 1: calculatrice(); break;
-            case 2: verifierPremier(); break;
-            case 3: suiteFibonacci(); break;
-            case 4: trierTableau(); break;
-            case 5: rechercherElement(); break;
-            case 0: printf("Au revoir !\n"); break;
-            default: printf("Choix invalide.\n");
+// Fonction 1 : Calculatrice
+void calculatrice() {
+    int choix;
+    float a, b, resultat;
+
+    printf("\n--- Calculatrice ---\n");
+    printf("1. Addition\n2. Soustraction\n3. Multiplication\n4. Division\n");
+    printf("Votre choix : ");
+    scanf("%d", &choix);
+
+    printf("Entrez le premier nombre : ");
+    scanf("%f", &a);
+    printf("Entrez le deuxième nombre : ");
+    scanf("%f", &b);
+
+    if (choix == 1) {
+        resultat = a + b;
+    } else if (choix == 2) {
+        resultat = a - b;
+    } else if (choix == 3) {
+        resultat = a * b;
+    } else if (choix == 4) {
+        if (b != 0)
+            resultat = a / b;
+        else {
+            printf("Erreur : division par zéro !\n");
+            return;
         }
+    } else {
+        printf("Choix invalide.\n");
+        return;
+    }
 
-    } while (choix != 0);
-
-    return 0;
+    printf("Résultat : %.2f\n", resultat);
 }
+
+// Fonction 2 : Vérification de nombre premier
+void verifierPremier() {
+    int n, i, estPremier = 1;
+
+    printf("\n--- Vérification de nombre premier ---\n");
+    printf("Entrez un nombre entier : ");
+    scanf("%d", &n);
+
+    if (n <= 1) {
+        estPremier = 0;
+    } else {
+        for (i = 2; i < n; i++) {
+            if (n % i == 0) {
+                estPremier = 0;
+                break;
+            }
+        }
+    }
+
+    if (estPremier)
+        printf("%d est un nombre premier.\n", n);
+    else
+        printf("%d n'est pas un nombre premier.\n", n);
+}
+
+// Fonction 3 : Suite arithmétique (simple)
+void suiteArithmetique() {
+    int u0, r, n, i;
+
+    printf("\n--- Suite arithmétique ---\n");
+    printf("Premier terme (u0) : ");
+    scanf("%d", &u0);
+
+    printf("Raison (r) : ");
+    scanf("%d", &r);
+
+    printf("Nombre de termes à générer : ");
+    scanf("%d", &n);
+
+    printf("Suite : ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", u0 + i * r);
+    }
+    printf("\n");
+}
+
+// Fonction 4 : Tri d’un tableau (tri à bulles)
+void triTableau() {
+    int tab[100], n, i, j, temp;
+
+    printf("\n--- Tri d'un tableau ---\n");
+    printf("Combien d'éléments ? ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Élément %d : ", i + 1);
+        scanf("%d", &tab[i]);
+    }
+
+    // Tri à bulles
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - 1 - i; j++) {
+            if (tab[j] > tab[j + 1]) {
+                temp = tab[j];
+                tab[j] = tab[j + 1];
+                tab[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Tableau trié : ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", tab[i]);
+    }
+    printf("\n");
+}
+
+// Fonction 5 : Recherche dans un tableau
+void rechercheDansTableau() {
+    int tab[100], n, i, x, trouve = 0;
+
+    printf("\n--- Recherche dans un tableau ---\n");
+    printf("Combien d'éléments ? ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        printf("Élément %d : ", i + 1);
+        scanf("%d", &tab[i]);
+    }
+
+    printf("Entrez l'élément à rechercher : ");
+    scanf("%d", &x);
+
+    for (i = 0; i < n; i++) {
+        if (tab[i] == x) {
+            printf("Élément trouvé à la position %d\n", i + 1);
+            trouve = 1;
+            break;
+        }
+    }
+
+    if (!trouve) {
+        printf("Élément non trouvé.\n");
+    }
+}
+
+// Fonction principale avec menu
+int main() {
+    int choix;
+
+    do {
+        printf("\n=== MENU ===\n");
+        printf("1. Calculatrice\n");
+        printf("2. Vérifier si un nombre est premier\n");
