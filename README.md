@@ -1,4 +1,5 @@
 # Outils Algorithmiques en C
+## Écrit par M Laouali A A
 
 Ce projet est une **application en ligne de commande** développée en **langage C**. Elle propose plusieurs **outils algorithmiques** utiles pour l'apprentissage ou l'utilisation de fonctions de base : calculatrice, vérification de nombres premiers, génération de suites, etc.
 
@@ -33,6 +34,4 @@ L'application propose un menu interactif avec les options suivantes :
 ## Compilation
 
 ```bash
-clang R01.c -o R01
-
-## Écrit par M- Laouali A A
+clang Code_Calc.c -o Code_Calc
