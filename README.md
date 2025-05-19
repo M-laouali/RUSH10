@@ -34,4 +34,4 @@ L'application propose un menu interactif avec les options suivantes :
 ## Compilation
 
 ```bash
-clang Code_Calc.c -o Code_Calc
+clang Code_Cal_c.c -o Code_Cal_c
